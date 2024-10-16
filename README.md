@@ -1,6 +1,6 @@
 
-# Sales First - Flutter
-Este é um projeto de CRM (Customer Relationship Management) de gestão de vendas desenvolvido em Flutter, com foco na automação de tarefas diárias associadas às contas de clientes.
+# Sales First 
+Este é um projeto de CRM (Customer Relationship Management) de gestão de vendas, com foco na automação de tarefas diárias associadas às contas de clientes.
 
 ## Funcionalidades Principais
 - Cadastro de Empresas: Adicione empresas com informações como nome, CNPJ, e contatos.
@@ -12,3 +12,9 @@ Este é um projeto de CRM (Customer Relationship Management) de gestão de venda
 - Anexar E-mails: Faça o upload de e-mails relacionados às atividades das contas.
 - Calendário de Reuniões: Agende e gerencie reuniões com os clientes.
 - Painel Gerencial: Visualize o progresso das atividades e métricas de desempenho.
+
+## Tecnologias utilizadas
+- Node JS
+- JavaScript
+- React Native
+- MongoDB
