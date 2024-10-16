@@ -19,8 +19,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB conectado!'))
     .catch(error => console.error('Erro ao conectar ao MongoDB:', error));
 
-app.get('/', (req, res) => {
-    res.send('API Ssles First'); 
+app.get('/', (res) => {
+    res.send('API Sales First'); 
 });
 
 const PORT = process.env.PORT || 5000; 
