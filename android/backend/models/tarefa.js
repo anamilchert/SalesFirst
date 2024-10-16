@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const TaskStatus = require('../utils/taskStatus'); 
 
 const TarefaSchema = new mongoose.Schema({
   descricao: {

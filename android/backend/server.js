@@ -2,6 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose'); 
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const usuarioRoutes = require('./routes/usuarioRoutes');
+const empresaRoutes = require('./routes/empresaRoutes');
+const contatoRoutes = require('./routes/contatoRoutes');
+const tarefaRoutes = require('./routes/tarefaRoutes');
 
 const app = express();
 
