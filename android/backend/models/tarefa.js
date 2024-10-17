@@ -21,10 +21,6 @@ const TarefaSchema = new mongoose.Schema({
     enum: Object.values(TaskStatus),
     default: TaskStatus.PENDENTE,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   deadline: {
     type: Date,
     required: false,
