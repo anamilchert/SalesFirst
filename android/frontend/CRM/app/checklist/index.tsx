@@ -76,7 +76,4 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     color: '#aaa',
   },
-  button: {
-    margin: 2px,
-  }
 });
