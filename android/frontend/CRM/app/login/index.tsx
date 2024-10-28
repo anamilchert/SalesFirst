@@ -12,7 +12,7 @@ export default function LoginScreen() {
       <TextInput placeholder="Senha" secureTextEntry style={styles.input} />
       <Button
         title="Entrar"
-        onPress={() => router.push('/calendario')} 
+        onPress={() => router.push('/checklist')} 
       />
     </View>
   );
