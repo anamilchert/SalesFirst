@@ -1,9 +1,10 @@
-import { Stack } from "expo-router";
+// app/layout.tsx
+import { Stack, Slot } from 'expo-router';
 
-export default function RootLayout() {
+export default function Layout() {
   return (
     <Stack>
-      <Stack.Screen name="index" />
+      <Slot />
     </Stack>
   );
 }
