@@ -1,13 +1,19 @@
 import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function LoginScreen() {
+    const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <TextInput placeholder="E-mail" style={styles.input} />
       <TextInput placeholder="Senha" secureTextEntry style={styles.input} />
-      <Button title="Entrar" onPress={() => { /* lógica de login */ }} />
+      <Button
+        title="Entrar"
+        onPress={() => router.push('/calendario')} 
+      />
     </View>
   );
 }
