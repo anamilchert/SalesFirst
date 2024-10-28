@@ -18,7 +18,7 @@ export default function ContasScreen() {
         style={styles.addButton}
         onPress={() => router.push('/cadastroContas')}
       >
-        <Text style={styles.addButtonText}>+</Text>
+        <Text style={styles.addButtonText}>Adicionar Conta</Text>
       </TouchableOpacity>
       <FlatList
         data={empresas}
@@ -47,18 +47,16 @@ const styles = StyleSheet.create({
   },
   addButton: {
     backgroundColor: '#007BFF',
-    borderRadius: 50,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
     alignItems: 'center',
-    position: 'absolute',
-    right: 20,
-    bottom: 20,
   },
   addButtonText: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   itemContainer: {
     padding: 10,
