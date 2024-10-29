@@ -1,0 +1,21 @@
+### Criação de um novo contato
+POST http://localhost:5000/api/contatos
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao.silva@example.com",
+  "telefone": "123456789",
+  "cargo": "Gerente de Vendas",
+  "empresa": "67102b5b337de1c528d441ea"
+}
+
+### Criação de um novo usuário
+POST http://localhost:5000/api/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Maria Silva",
+  "email": "maria.silva@example.com",
+  "senha": "senhaSegura123"
+}
