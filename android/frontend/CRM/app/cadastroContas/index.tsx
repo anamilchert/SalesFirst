@@ -23,6 +23,7 @@ export default function CadastroContasScreen() {
           endereco,
         }),
       });
+      console.log("cadastro realizado com sucesso!")
 
       const data = await response.json();
       if (response.ok) {

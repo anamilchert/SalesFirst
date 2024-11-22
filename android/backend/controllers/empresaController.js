@@ -10,7 +10,7 @@ exports.criarEmpresa = async (req, res) => {
   }
 };
 
-exports.obterEmpresas = async (res) => {
+exports.obterEmpresas = async (req, res) => {
   try {
     const empresas = await Empresa.find();
     res.status(200).send(empresas);
