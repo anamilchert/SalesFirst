@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {
-  getMeetingsByDate,
-  createMeeting,
-} = require('../controllers/reunioesController');
+const reunioesController = require('../controllers/reunioesController');
 
 router.get('/', getMeetingsByDate);
-
-router.post('/', createMeeting);
+router.post('/', reunioesController.createMeeting);
 
 module.exports = router;
