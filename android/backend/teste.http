@@ -3,9 +3,9 @@ POST http://localhost:5000/api/contatos
 Content-Type: application/json
 
 {
-  "nome": "João carlos",
-  "email": "joao.silva@gmail.com",
-  "telefone": "133456789",
+  "nome": "João pereira",
+  "email": "joao.silva@hotmail.com",
+  "telefone": "13345655789",
   "cargo": "Gerente de Vendas",
   "empresa": "67102b5b337de1c528d441ea"
 }
