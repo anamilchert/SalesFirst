@@ -6,6 +6,7 @@ const usuarioRoutes = require('./routes/usuarioRoutes');
 const empresaRoutes = require('./routes/empresaRoutes');
 const contatoRoutes = require('./routes/contatoRoutes');
 const tarefaRoutes = require('./routes/tarefaRoutes');
+const reunioesRoutes = require('./routes/reunioesRoutes')
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/empresas', empresaRoutes);
 app.use('/api/contatos', contatoRoutes);
 app.use('/api/tarefas', tarefaRoutes);
+app.use('/api/reunioes', reunioesRoutes);
+
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB conectado!'))

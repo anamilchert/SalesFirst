@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TextInput, Button, FlatList, Alert } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
@@ -6,22 +6,27 @@ export default function CalendarioScreen() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [meetingTitle, setMeetingTitle] = useState('');
   const [meetingTime, setMeetingTime] = useState('');
-  const [meetings, setMeetings] = useState([]); // Lista de reuniões carregadas do banco de dados
-
-  const handleDayPress = (day) => {
-    setSelectedDate(day.dateString);
-    fetchMeetings(day.dateString); // Carrega reuniões do banco de dados
-  };
+  const [meetings, setMeetings] = useState([]); 
 
   const fetchMeetings = async (date) => {
     try {
-      const response = await fetch(`http://localhost:5000/meetings?date=${date}`);
-      const data = await response.json();
-      setMeetings(data);
+      const response = await fetch(`http://localhost:5000/api/reunioes?date=${date}`);
+      if (response.ok) {
+        const data = await response.json();
+        setMeetings(data);
+      } else {
+        throw new Error("Erro ao buscar reuniões");
+      }
     } catch (error) {
-      console.error("Erro ao carregar reuniões:", error);
+      console.error("Erro ao buscar reuniões:", error);
       Alert.alert("Erro", "Não foi possível carregar as reuniões.");
     }
+  };
+
+
+  const handleDayPress = (day) => {
+    setSelectedDate(day.dateString);
+    fetchMeetings(day.dateString); 
   };
 
   const handleAddMeeting = async () => {
@@ -33,7 +38,7 @@ export default function CalendarioScreen() {
     const newMeeting = { title: meetingTitle, date: selectedDate, time: meetingTime };
 
     try {
-      const response = await fetch("http://localhost:27017/reunioes", {
+      const response = await fetch("http://localhost:5000/api/reunioes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newMeeting),
@@ -43,11 +48,12 @@ export default function CalendarioScreen() {
         setMeetings((prev) => [...prev, newMeeting]);
         setMeetingTitle('');
         setMeetingTime('');
+        Alert.alert("Sucesso", "Reunião salva com sucesso.");
       } else {
-        throw new Error("Erro ao salvar a reunião");
+        throw new Error("Erro ao salvar reunião");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao salvar reunião:", error);
       Alert.alert("Erro", "Não foi possível salvar a reunião.");
     }
   };
