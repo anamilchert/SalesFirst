@@ -19,3 +19,14 @@ Content-Type: application/json
   "email": "maria.silva@example.com",
   "senha": "senhaSegura123"
 }
+
+###
+POST http://localhost:5000/api/reunioes
+Content-Type: application/json
+
+{
+  "title": "Reunião de Planejamento",
+  "date": "2024-12-02",
+  "time": "15:00"
+}
+
