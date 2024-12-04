@@ -30,3 +30,6 @@ Content-Type: application/json
   "time": "15:00"
 }
 
+###
+GET http://localhost:5000/api/reunioes?date=2024-12-25
+Content-Type: application/json

@@ -6,55 +6,68 @@ export default function CalendarioScreen() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [meetingTitle, setMeetingTitle] = useState('');
   const [meetingTime, setMeetingTime] = useState('');
-  const [meetings, setMeetings] = useState([]); 
+  const [meetingsByDate, setMeetingsByDate] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const fetchMeetings = async (date) => {
     try {
       const response = await fetch(`http://localhost:5000/api/reunioes?date=${date}`);
       if (response.ok) {
         const data = await response.json();
-        setMeetings(data);
+        setMeetingsByDate((prev) => ({ ...prev, [date]: data }));
       } else {
-        throw new Error("Erro ao buscar reuniões");
+        throw new Error('Erro ao buscar reuniões');
       }
     } catch (error) {
-      console.error("Erro ao buscar reuniões:", error);
-      Alert.alert("Erro", "Não foi possível carregar as reuniões.");
+      console.error('Erro ao buscar reuniões:', error);
+      Alert.alert('Erro', 'Não foi possível carregar as reuniões.');
     }
   };
 
-
   const handleDayPress = (day) => {
-    setSelectedDate(day.dateString);
-    fetchMeetings(day.dateString); 
+    const selected = day.dateString;
+    setSelectedDate(selected);
+
+    if (!meetingsByDate[selected]) {
+      fetchMeetings(selected);
+    }
   };
 
   const handleAddMeeting = async () => {
     if (!meetingTitle || !meetingTime) {
-      Alert.alert("Atenção", "Por favor, preencha todos os campos.");
+      Alert.alert('Atenção', 'Por favor, preencha todos os campos.');
       return;
     }
 
     const newMeeting = { title: meetingTitle, date: selectedDate, time: meetingTime };
 
+    setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/reunioes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('http://localhost:5000/api/reunioes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newMeeting),
       });
 
       if (response.ok) {
-        setMeetings((prev) => [...prev, newMeeting]);
+        const savedMeeting = await response.json();
+
+        setMeetingsByDate((prev) => ({
+          ...prev,
+          [selectedDate]: [...(prev[selectedDate] || []), savedMeeting],
+        }));
+
         setMeetingTitle('');
         setMeetingTime('');
-        Alert.alert("Sucesso", "Reunião salva com sucesso.");
+        Alert.alert('Sucesso', 'Reunião marcada com sucesso.');
       } else {
-        throw new Error("Erro ao salvar reunião");
+        throw new Error('Erro ao salvar reunião');
       }
     } catch (error) {
-      console.error("Erro ao salvar reunião:", error);
-      Alert.alert("Erro", "Não foi possível salvar a reunião.");
+      console.error('Erro ao salvar reunião:', error);
+      Alert.alert('Erro', 'Não foi possível salvar a reunião.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +95,7 @@ export default function CalendarioScreen() {
           </Text>
           <Text style={styles.meetingsTitle}>Reuniões marcadas:</Text>
           <FlatList
-            data={meetings}
+            data={meetingsByDate[selectedDate] || []}
             keyExtractor={(item, index) => `${item.title}-${index}`}
             renderItem={({ item }) => (
               <Text style={styles.meetingItem}>
@@ -104,7 +117,11 @@ export default function CalendarioScreen() {
             value={meetingTime}
             onChangeText={setMeetingTime}
           />
-          <Button title="Adicionar reunião" onPress={handleAddMeeting} />
+          <Button
+            title={loading ? 'Salvando...' : 'Adicionar reunião'}
+            onPress={handleAddMeeting}
+            disabled={loading}
+          />
         </View>
       )}
     </View>
