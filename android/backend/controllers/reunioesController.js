@@ -1,7 +1,7 @@
 const Meeting = require('../models/reunioes');
 
 
-const getMeetingsByDate = async (req, res) => {
+exports.getMeetingsByDate = async (req, res) => {
   const { date } = req.query;
 
   try {
@@ -13,7 +13,7 @@ const getMeetingsByDate = async (req, res) => {
   }
 };
 
-const createMeeting = async (req, res) => {
+exports.createMeeting = async (req, res) => {
   const { title, date, time } = req.body;
 
   try {
@@ -24,9 +24,4 @@ const createMeeting = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Erro ao criar reunião.' });
   }
-};
-
-module.exports = {
-  getMeetingsByDate,
-  createMeeting,
 };
