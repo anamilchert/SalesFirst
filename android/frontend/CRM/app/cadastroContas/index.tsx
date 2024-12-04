@@ -9,8 +9,10 @@ export default function CadastroContasScreen() {
   const [setor, setSetor] = useState('');
   const [endereco, setEndereco] = useState('');
 
+
   const handleCadastro = async () => {
     try {
+
       const response = await fetch('http://localhost:5000/api/empresas', {
         method: 'POST',
         headers: {
@@ -23,11 +25,13 @@ export default function CadastroContasScreen() {
           endereco,
         }),
       });
-      console.log("cadastro realizado com sucesso!")
+
 
       const data = await response.json();
       if (response.ok) {
-        router.push(`/detalhesContas/${data.id}`);
+        console.log("Cadastro realizado com sucesso!");
+
+        router.push(`/detalhesContas/index/${data._id}`);
       } else {
         console.error('Erro ao cadastrar a conta:', data);
       }

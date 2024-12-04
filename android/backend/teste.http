@@ -3,9 +3,9 @@ POST http://localhost:5000/api/contatos
 Content-Type: application/json
 
 {
-  "nome": "João Silva",
-  "email": "joao.silva@example.com",
-  "telefone": "123456789",
+  "nome": "João pereira",
+  "email": "joao.silva@hotmail.com",
+  "telefone": "13345655789",
   "cargo": "Gerente de Vendas",
   "empresa": "67102b5b337de1c528d441ea"
 }
@@ -15,7 +15,21 @@ POST http://localhost:5000/api/usuarios
 Content-Type: application/json
 
 {
-  "nome": "Maria Silva",
-  "email": "maria.silva@example.com",
-  "senha": "senhaSegura123"
+  "nome": "Maria alves",
+  "email": "maria.silva@gmail.com",
+  "senha": "senhaSegura12453"
 }
+
+###
+POST http://localhost:5000/api/reunioes
+Content-Type: application/json
+
+{
+  "title": "Reunião de Planejamento",
+  "date": "2024-12-02",
+  "time": "15:00"
+}
+
+###
+GET http://localhost:5000/api/reunioes?date=2024-12-25
+Content-Type: application/json

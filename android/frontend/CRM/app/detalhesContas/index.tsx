@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 
 export default function DetalhesContaScreen({ route }) {
   const { contaId } = route.params;
@@ -17,6 +17,7 @@ export default function DetalhesContaScreen({ route }) {
         setConta(data);
       } catch (error) {
         console.error('Erro ao buscar detalhes da conta:', error);
+        Alert.alert('Erro', 'Não foi possível carregar os detalhes da conta.');
       } finally {
         setLoading(false);
       }
@@ -24,6 +25,7 @@ export default function DetalhesContaScreen({ route }) {
 
     fetchContaDetails();
   }, [contaId]);
+
 
   if (loading) {
     return (
