@@ -37,15 +37,21 @@ export default function ChecklistScreen() {
         )}
       />
 
-      <Button
-        style={styles.button}
-        title="Acessar Calendário de Reuniões"
-        onPress={() => router.push('/calendario')}
-      />
-      <Button
-        title="Acessar Contas"
-        onPress={() => router.push('/contas')}
-      />
+     {/* Botão 1 com margem */}
+     <View style={styles.button}>
+        <Button
+          title="Acessar Calendário de Reuniões"
+          onPress={() => router.push('/calendario')}
+        />
+      </View>
+
+      {/* Botão 2 com margem */}
+      <View style={styles.button}>
+        <Button
+          title="Acessar Contas"
+          onPress={() => router.push('/contas')}
+        />
+      </View>
     </View>
   );
 }
@@ -75,5 +81,8 @@ const styles = StyleSheet.create({
   completedText: {
     textDecorationLine: 'line-through',
     color: '#aaa',
+  },
+  button: {
+    marginVertical: 10, // Aplica a margem entre os botões
   },
 });
