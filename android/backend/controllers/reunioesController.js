@@ -10,7 +10,6 @@ exports.getMeetingsByDate = async (req, res) => {
 
   try {
     const meetings = await Reunioes.find({ date });
-    console.log('Reuniões encontradas:', meetings);
     if (meetings.length === 0) {
       return res.status(404).json({ message: 'Nenhuma reunião encontrada para a data fornecida.' });
     }
