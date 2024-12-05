@@ -37,15 +37,18 @@ export default function ChecklistScreen() {
         )}
       />
 
-      <Button
-        style={styles.button}
-        title="Acessar Calendário de Reuniões"
-        onPress={() => router.push('/calendario')}
-      />
-      <Button
-        title="Acessar Contas"
-        onPress={() => router.push('/contas')}
-      />
+    <View style={styles.buttonContainer}>
+            <Button
+              style={styles.button}
+              title="Acessar Calendário de Reuniões"
+              onPress={() => router.push('/calendario')}
+            />
+            <View style={{ height: 16 }} /> 
+            <Button
+              title="Acessar Contas"
+              onPress={() => router.push('/contas')}
+            />
+          </View>
     </View>
   );
 }
@@ -75,5 +78,8 @@ const styles = StyleSheet.create({
   completedText: {
     textDecorationLine: 'line-through',
     color: '#aaa',
+  },
+  buttonContainer: {
+    marginTop: 16,
   },
 });
