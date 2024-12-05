@@ -8,11 +8,22 @@ export default function CadastroContasScreen() {
   const [cnpj, setCnpj] = useState('');
   const [setor, setSetor] = useState('');
   const [endereco, setEndereco] = useState('');
-
+  const [errors, setErrors] = useState({});
 
   const handleCadastro = async () => {
-    try {
+    const newErrors = {};
 
+
+    if (!nome) newErrors.nome = 'É necessário preencher este campo.';
+    if (!cnpj) newErrors.cnpj = 'É necessário preencher este campo.';
+    if (!setor) newErrors.setor = 'É necessário preencher este campo.';
+    if (!endereco) newErrors.endereco = 'É necessário preencher este campo.';
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) return;
+
+    try {
       const response = await fetch('http://localhost:5000/api/empresas', {
         method: 'POST',
         headers: {
@@ -26,10 +37,9 @@ export default function CadastroContasScreen() {
         }),
       });
 
-
       const data = await response.json();
       if (response.ok) {
-        console.log("Cadastro realizado com sucesso!");
+        console.log('Cadastro realizado com sucesso!');
 
         router.push(`/detalhesContas/index/${data._id}`);
       } else {
@@ -43,30 +53,53 @@ export default function CadastroContasScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cadastro de Conta</Text>
+
+
+      {errors.nome && <Text style={styles.error}>{errors.nome}</Text>}
       <TextInput
-        style={styles.input}
+        style={[styles.input, errors.nome && styles.inputError]}
         placeholder="Nome da Empresa"
         value={nome}
-        onChangeText={setNome}
+        onChangeText={(text) => {
+          setNome(text);
+          if (errors.nome) setErrors((prev) => ({ ...prev, nome: '' }));
+        }}
       />
+
+
+      {errors.cnpj && <Text style={styles.error}>{errors.cnpj}</Text>}
       <TextInput
-        style={styles.input}
+        style={[styles.input, errors.cnpj && styles.inputError]}
         placeholder="CNPJ"
         value={cnpj}
-        onChangeText={setCnpj}
+        onChangeText={(text) => {
+          setCnpj(text);
+          if (errors.cnpj) setErrors((prev) => ({ ...prev, cnpj: '' })); 
+        }}
       />
+
+      {errors.setor && <Text style={styles.error}>{errors.setor}</Text>}
       <TextInput
-        style={styles.input}
+        style={[styles.input, errors.setor && styles.inputError]}
         placeholder="Setor"
         value={setor}
-        onChangeText={setSetor}
+        onChangeText={(text) => {
+          setSetor(text);
+          if (errors.setor) setErrors((prev) => ({ ...prev, setor: '' }));
+        }}
       />
+
+      {errors.endereco && <Text style={styles.error}>{errors.endereco}</Text>}
       <TextInput
-        style={styles.input}
+        style={[styles.input, errors.endereco && styles.inputError]}
         placeholder="Endereço"
         value={endereco}
-        onChangeText={setEndereco}
+        onChangeText={(text) => {
+          setEndereco(text);
+          if (errors.endereco) setErrors((prev) => ({ ...prev, endereco: '' }));
+        }}
       />
+
       <Button title="Cadastrar" onPress={handleCadastro} />
     </View>
   );
@@ -90,5 +123,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 12,
     paddingLeft: 8,
+    borderRadius: 4,
+  },
+  inputError: {
+    borderColor: 'red',
+  },
+  error: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: 4,
   },
 });
