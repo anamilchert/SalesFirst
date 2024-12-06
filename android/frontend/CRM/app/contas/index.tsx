@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
 export default function ContasScreen() {
@@ -11,14 +11,10 @@ export default function ContasScreen() {
     const fetchEmpresas = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/empresas');
-        if (!response.ok) {
-          throw new Error('Erro ao buscar as contas');
-        }
         const data = await response.json();
         setEmpresas(data);
       } catch (error) {
         console.error('Erro ao buscar contas:', error);
-        Alert.alert('Erro', 'Não foi possível carregar as contas cadastradas.');
       } finally {
         setLoading(false);
       }
@@ -50,6 +46,7 @@ export default function ContasScreen() {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.itemContainer}
+            onPress={() => router.push(`/detalhesContas/${item._id}`)}
           >
             <Text style={styles.itemText}>{item.nome}</Text>
           </TouchableOpacity>
