@@ -9,46 +9,50 @@ export default function CadastroContasScreen() {
   const [setor, setSetor] = useState('');
   const [endereco, setEndereco] = useState('');
   const [errors, setErrors] = useState({});
-
   const handleCadastro = async () => {
     const newErrors = {};
-
-
+  
+    // Validação dos campos obrigatórios
     if (!nome) newErrors.nome = 'É necessário preencher este campo.';
     if (!cnpj) newErrors.cnpj = 'É necessário preencher este campo.';
     if (!setor) newErrors.setor = 'É necessário preencher este campo.';
     if (!endereco) newErrors.endereco = 'É necessário preencher este campo.';
-
+  
     setErrors(newErrors);
-
+  
     if (Object.keys(newErrors).length > 0) return;
-
+  
+    const dadosCadastro = { nome, cnpj, setor, endereco };
+  
     try {
+      console.log('Enviando dados:', dadosCadastro);
+  
       const response = await fetch('http://localhost:5000/api/empresas', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          nome,
-          cnpj,
-          setor,
-          endereco,
-        }),
+        body: JSON.stringify(dadosCadastro),
       });
-
+  
+      // Log para ver o status da resposta
+      console.log('Status da resposta:', response.status);
+  
       const data = await response.json();
+      console.log('Dados retornados:', data);
+  
       if (response.ok) {
         console.log('Cadastro realizado com sucesso!');
-
         router.push(`/detalhesContas/index/${data._id}`);
       } else {
-        console.error('Erro ao cadastrar a conta:', data);
+        console.error('Erro retornado pelo servidor:', data);
+        alert(`Erro: ${data.message || 'Não foi possível cadastrar a conta.'}`);
       }
     } catch (error) {
       console.error('Erro na requisição:', error);
+      alert('Erro ao se conectar com o servidor. Tente novamente.');
     }
-  };
+  };  
 
   return (
     <View style={styles.container}>

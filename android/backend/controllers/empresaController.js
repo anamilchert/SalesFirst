@@ -1,44 +1,10 @@
 const Empresa = require('../models/empresa');
-const Tarefa = require('../models/tarefa');
-
 
 exports.criarEmpresa = async (req, res) => {
   try {
 
     const empresa = new Empresa(req.body);
     await empresa.save();
-
-
-    const tarefasAutomáticas = [
-      {
-        descricao: 'Cadastrar um contato da conta',
-        usuario: req.body.usuarioId, 
-        empresa: empresa._id,
-        status: 'PENDENTE', 
-      },
-      {
-        descricao: 'Adicionar o contato no LinkedIn',
-        usuario: req.body.usuarioId, 
-        empresa: empresa._id,
-        status: 'PENDENTE',
-      },
-      {
-        descricao: 'Tentar contato via e-mail',
-        usuario: req.body.usuarioId,
-        empresa: empresa._id,
-        status: 'PENDENTE',
-      },
-      {
-        descricao: 'Tentar marcar reunião',
-        usuario: req.body.usuarioId,
-        empresa: empresa._id,
-        status: 'PENDENTE',
-      },
-    ];
-
-
-    await Tarefa.insertMany(tarefasAutomáticas);
-
 
     res.status(201).send(empresa);
   } catch (error) {
