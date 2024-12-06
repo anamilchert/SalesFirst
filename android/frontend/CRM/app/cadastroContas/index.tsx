@@ -35,7 +35,6 @@ export default function CadastroContasScreen() {
         body: JSON.stringify(dadosCadastro),
       });
   
-      // Log para ver o status da resposta
       console.log('Status da resposta:', response.status);
   
       const data = await response.json();
@@ -43,7 +42,7 @@ export default function CadastroContasScreen() {
   
       if (response.ok) {
         console.log('Cadastro realizado com sucesso!');
-        router.push(`/detalhesContas/index/${data._id}`);
+        router.push(`/contas`);
       } else {
         console.error('Erro retornado pelo servidor:', data);
         alert(`Erro: ${data.message || 'Não foi possível cadastrar a conta.'}`);

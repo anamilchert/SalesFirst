@@ -1,15 +1,39 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-
-const empresas = [
-  { id: '1', nome: 'Empresa A' },
-  { id: '2', nome: 'Empresa B' },
-  { id: '3', nome: 'Empresa C' },
-];
 
 export default function ContasScreen() {
   const router = useRouter();
+  const [empresas, setEmpresas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEmpresas = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/empresas');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar as contas');
+        }
+        const data = await response.json();
+        setEmpresas(data);
+      } catch (error) {
+        console.error('Erro ao buscar contas:', error);
+        Alert.alert('Erro', 'Não foi possível carregar as contas cadastradas.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEmpresas();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -22,11 +46,13 @@ export default function ContasScreen() {
       </TouchableOpacity>
       <FlatList
         data={empresas}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
+          <TouchableOpacity
+            style={styles.itemContainer}
+          >
             <Text style={styles.itemText}>{item.nome}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
